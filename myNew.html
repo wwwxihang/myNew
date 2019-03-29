@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+
+<body>
+	<script>
+		// new 是用来做继承的
+
+		function MyNew() {
+			var c = Array.prototype.shift.call(arguments);
+			var obj = Object.create(c.prototype)
+			var result = c.apply(obj, arguments)
+
+			return typeof result === "object" && result ? result : obj
+		}
+
+		function MyInfo(name, sex) {
+			this.name = name;
+			this.sex = sex;
+			this.age = 25;
+
+			// return null
+			// return {
+			// 	name: 1
+			// }
+		}
+
+		MyInfo.prototype.say = function () {
+			console.log("我是" + this.name)
+		}
+
+		var my = new MyInfo("Tom", "男")
+		var my2 = MyNew(MyInfo, "Tom", "男")
+		// var my3 = MyInfo.call(MyInfo, "Tom", "男")
+
+		console.log(my)
+		console.log(my2)
+		// console.log(my3)
+	</script>
+</body>
+
+</html>
